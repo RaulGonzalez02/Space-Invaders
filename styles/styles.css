@@ -1,0 +1,36 @@
+@font-face {
+    font-family: arcade;
+    src: url("../assets/fonts/ARCADECLASSIC.TTF");
+}
+@font-face {
+    font-family: marcianos;
+    src: url("../assets/fonts/invaders.from.space.[fontvir.us].ttf");
+}
+
+body{
+    background-image: url(../assets/images/fondoarcade.jpg);
+}
+
+.container {
+    margin: 0 auto;
+    border: 1px solid;
+    width: 1080px;
+
+}
+
+.title {
+    font-family: arcade;
+    letter-spacing: 5px;
+    text-align: center;
+    color: wheat;
+    font-size: 3rem;
+}
+.canvas{
+    background-image: url(../assets/images/fondo-maquina.jpg);
+    margin: 0 auto;
+}
+.marcianos{
+    font-family: marcianos;
+    color: wheat;
+    text-align: center;
+}
