@@ -28,9 +28,15 @@ body{
 .canvas{
     background-image: url(../assets/images/fondo-maquina.jpg);
     margin: 0 auto;
+    z-index: -10;
 }
 .marcianos{
     font-family: marcianos;
     color: wheat;
+    text-align: center;
+}
+
+.score{
+    font-family: arcade;
     text-align: center;
 }
