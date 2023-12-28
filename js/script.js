@@ -2,12 +2,13 @@ let canvas;
 let ctx;
 let container = document.getElementById("container")
 let score = document.getElementById("score")
-let wCanvas = 1080;
+let wCanvas = 1100;
 let hCanvas = 600;
 let fps = 60;
 let player;
 let playerIMG;
-
+let enemies = []
+let enemiesIMG;
 //CLASS
 class Player {
     constructor() {
@@ -43,9 +44,31 @@ class Player {
         }
     }
     moverRig() {
-        if (this.x + 0.2 < 9.4) {
+        if (this.x + 0.2 < 10) {
             this.x += 0.2
             //console.log(this.x);
+        }
+    }
+}
+//CLASS ENEMIES
+class Enemy {
+    constructor(x, y, image) {
+        this.x = x
+        this.y = y
+        this.image=image
+        this.ancho = 100
+        this.alto = 100
+        this.velocidad=0.005
+    }
+    dibuja() {
+        ctx.drawImage(
+            this.image,
+            this.x * this.ancho, this.y * this.alto, this.ancho, this.alto
+        )
+    }
+    move(){
+        if(this.y-this.velocidad<6){
+            this.y+=this.velocidad
         }
     }
 }
@@ -56,6 +79,7 @@ const inicializa = () => {
     player = new Player()
     playerIMG = document.createElement("IMG");
     playerIMG.src = "../assets/images/nave5.png"
+    crearEnemigos()
     setInterval(principal, 1000 / 60)
 }
 
@@ -63,7 +87,10 @@ const principal = () => {
     canvas.width = wCanvas
     canvas.height = hCanvas
     player.dibuja()
-
+    enemies.map((enemy) => {
+        enemy.dibuja()
+        enemy.move()
+    })
 }
 
 const moverPlayer = (event) => {
@@ -90,6 +117,29 @@ const moverPlayer = (event) => {
     }
 }
 
+const crearEnemigos = () => {
+    for (let i = 0; i <= 10; i++) {
+        for (let j = 0; j < 4; j++) {
+            if (j == 0) {
+                enemiesIMG = document.createElement("IMG");
+                enemiesIMG.src = "../assets/images/nave4.png"
+                enemies.push(new Enemy(i, j, enemiesIMG))
+            }
+            if (j == 1) {
+                enemiesIMG = document.createElement("IMG");
+                enemiesIMG.src = "../assets/images/nave3.png"
+                enemies.push(new Enemy(i, j, enemiesIMG))
+            }
+            if (j == 2) {
+                enemiesIMG = document.createElement("IMG");
+                enemiesIMG.src = "../assets/images/nave6.png"
+                enemies.push(new Enemy(i, j, enemiesIMG))
+            }
+
+        }
+    }
+
+}
 //LISTENER
 document.addEventListener("DOMContentLoaded", inicializa)
 document.addEventListener("keydown", moverPlayer)
