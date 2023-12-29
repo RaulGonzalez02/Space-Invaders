@@ -12,6 +12,7 @@ let playerIMG;
 let enemies = []
 let enemiesIMG;
 let inicioJuego
+let contEnemy = 0;
 //CLASS
 class Player {
     constructor() {
@@ -19,6 +20,7 @@ class Player {
         this.y = 5;
         this.ancho = 100
         this.alto = 100
+        this.misiles=[]
     }
 
     //FUNTIONS CLASS
@@ -52,6 +54,11 @@ class Player {
             //console.log(this.x);
         }
     }
+    disparar(){
+        let misil=new Missile(this.x*this.ancho+45, this.y*this.alto)
+        this.misiles.push(misil)
+    }
+
 }
 //CLASS ENEMIES
 class Enemy {
@@ -86,6 +93,24 @@ class Enemy {
         }
     }
 }
+//CLASS MISSILE
+class Missile {
+    constructor(x, y) {
+        this.x = x
+        this.y = y
+        this.ancho = 5
+        this.alto = 15
+        this.velocidad = 5
+    }
+    dibuja() {
+        ctx.fillStyle = "red";
+        ctx.fillRect(this.x, this.y, this.ancho, this.alto);
+    }
+
+    move() {
+        this.y -= this.velocidad;
+    }
+}
 //FUNTIONS
 const inicializa = () => {
     canvas = document.getElementById("canvas")
@@ -94,9 +119,7 @@ const inicializa = () => {
     playerIMG = document.createElement("IMG");
     playerIMG.src = "../assets/images/nave5.png"
     crearEnemigos()
-/*     enemiesIMG = document.createElement("IMG");
-    enemiesIMG.src = "../assets/images/nave4.png"
-    enemies.push(new Enemy(5, 3, enemiesIMG)) */
+    contEnemy = enemies.length;
     inicioJuego = setInterval(principal, 1000 / 30)
 }
 //Funcion principal del juego
@@ -104,6 +127,10 @@ const principal = () => {
     canvas.width = wCanvas
     canvas.height = hCanvas
     player.dibuja()
+    player.misiles.forEach((missile) => {
+        missile.dibuja();
+        missile.move();
+    });
     enemies.map((enemy) => {
         enemy.dibuja()
         enemy.move()
@@ -160,26 +187,34 @@ const crearEnemigos = () => {
 
 //Funcion para que aparezca el boton de reiniciar juego
 const finJuego = () => {
-    btn_reinicio.style.display = "block"
+    btn_reinicio.classList.add("mostrar")
+    //console.log(enemies);
 }
 //Funcion para recargar el juego
 const reincioJuego = () => {
     window.location.reload()
 }
-//
+//Verificar colision con los enemigos
 const colision = () => {
     for (let i = 0; i < enemies.length; i++) {
         let enemy = enemies[i]
         if (player.y + player.alto <= enemy.y + enemy.alto + 0.5 || player.x + player.ancho == enemy.x + enemy.ancho * 0.5) {
             //console.log("colision");
             clearInterval(inicioJuego)
-            score.textContent="HAS COLISIONADO !! INVASION EN PROCESO..."
+            score.textContent = "HAS COLISIONADO !! INVASION EN PROCESO..."
             finJuego()
         }
-
+    }
+}
+//Funcion para que la nave lanze misiles, cuando se pulsa la tecla "z"
+const disparaMisil = (event) => {
+    let key = event.key
+    if (key == "z") {
+        player.disparar();
     }
 }
 //LISTENER
 document.addEventListener("DOMContentLoaded", inicializa)
 document.addEventListener("keydown", moverPlayer)
+document.addEventListener("keydown", disparaMisil)
 btn_reinicio.addEventListener("click", reincioJuego)
