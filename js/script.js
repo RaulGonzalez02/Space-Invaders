@@ -133,7 +133,7 @@ const inicializa = () => {
     ctx = canvas.getContext("2d")
     player = new Player()
     playerIMG = document.createElement("IMG");
-    playerIMG.src = "../assets/images/nave5.png"
+    playerIMG.src = "./assets/images/nave5.png"
     /*    enemiesIMG = document.createElement("IMG");
        enemiesIMG.src = "../assets/images/nave4.png"
        enemies.push(new Enemy(5, 1, enemiesIMG))
@@ -196,17 +196,17 @@ const crearEnemigos = () => {
         for (let j = 0; j < 4; j++) {
             if (j == 0) {
                 enemiesIMG = document.createElement("IMG");
-                enemiesIMG.src = "../assets/images/nave4.png"
+                enemiesIMG.src = "./assets/images/nave4.png"
                 enemies.push(new Enemy(i, j, enemiesIMG))
             }
             if (j == 1) {
                 enemiesIMG = document.createElement("IMG");
-                enemiesIMG.src = "../assets/images/nave3.png"
+                enemiesIMG.src = "./assets/images/nave3.png"
                 enemies.push(new Enemy(i, j, enemiesIMG))
             }
             if (j == 2) {
                 enemiesIMG = document.createElement("IMG");
-                enemiesIMG.src = "../assets/images/nave6.png"
+                enemiesIMG.src = "./assets/images/nave6.png"
                 enemies.push(new Enemy(i, j, enemiesIMG))
             }
         }
