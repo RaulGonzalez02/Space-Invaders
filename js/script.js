@@ -13,7 +13,7 @@ let enemies = []
 let enemiesIMG;
 let inicioJuego
 let contEnemy = 0;
-//CLASS
+//CLASS PLAYER
 class Player {
     constructor() {
         this.x = 5;
@@ -70,6 +70,7 @@ class Enemy {
         this.alto = 100
         this.velocidad = 0.005
     }
+    //FUNTIONS CLASS
     dibuja() {
         ctx.drawImage(
             this.image,
@@ -96,13 +97,10 @@ class Enemy {
     destroy(missiles) {
         for (let i = 0; i < missiles.length; i++) {
             let missile = missiles[i];
-            if (
-                this.x * this.ancho < missile.x + missile.ancho &&
+            if (this.x * this.ancho < missile.x + missile.ancho &&
                 this.x * this.ancho + this.ancho > missile.x &&
                 this.y * this.alto < missile.y + missile.alto &&
-                this.y * this.alto + this.alto > missile.y
-            ) {
-                // Borra el misil y el enemigo al colisionar
+                this.y * this.alto + this.alto > missile.y) {
                 missiles.splice(i, 1);
                 enemies.splice(enemies.indexOf(this), 1);
             }
@@ -119,6 +117,7 @@ class Missile {
         this.alto = 15
         this.velocidad = 5
     }
+    //FUNTIONS CLASS
     dibuja() {
         ctx.fillStyle = "red";
         ctx.fillRect(this.x, this.y, this.ancho, this.alto);
@@ -149,7 +148,7 @@ const principal = () => {
     canvas.height = hCanvas
     player.dibuja()
     contEnemy = enemies.length;
-    score.textContent=contEnemy+" enemigos" 
+    score.textContent = contEnemy + " enemigos"
     player.misiles.forEach((missile) => {
         missile.dibuja();
         missile.move();
@@ -159,9 +158,9 @@ const principal = () => {
         enemy.move()
         enemy.destroy(player.misiles)
     })
-    
-    if(contEnemy==0){
-        score.textContent="HAS ELIMINADO A TODOS LOS ENEMIGOS!!!"
+
+    if (contEnemy == 0) {
+        score.textContent = "HAS ELIMINADO A TODOS LOS ENEMIGOS!!!"
         finJuego()
     }
     colision()
