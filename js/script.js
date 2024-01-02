@@ -148,6 +148,8 @@ const principal = () => {
     canvas.width = wCanvas
     canvas.height = hCanvas
     player.dibuja()
+    contEnemy = enemies.length;
+    score.textContent=contEnemy+" enemigos" 
     player.misiles.forEach((missile) => {
         missile.dibuja();
         missile.move();
@@ -157,8 +159,7 @@ const principal = () => {
         enemy.move()
         enemy.destroy(player.misiles)
     })
-    contEnemy = enemies.length;
-    score.textContent=contEnemy+" enemigos"
+    
     if(contEnemy==0){
         score.textContent="HAS ELIMINADO A TODOS LOS ENEMIGOS!!!"
         finJuego()
